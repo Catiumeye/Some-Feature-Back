@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+
+  postgresql:
+    restart: always
+    image: postgres:14
+    ports:
+      - "9990:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+  redis:
+    image: redis:latest
+    ports:
+      - "9991:6379"
+    restart: always
