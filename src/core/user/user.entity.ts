@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,  } from "typeorm";
-import { IsEmail, Length } from "class-validator";
+import { IsEmail, IsString, Length } from "class-validator";
 
 
 @Entity({name: 'user'})
@@ -8,11 +8,12 @@ export class User {
     id: number;
 
     @Length(3, 20)
-    @Column({type: 'varchar'})
+    @IsString()
+    @Column({type: 'varchar', unique: true})
     username: string;
 
     @IsEmail()
-    @Column({type: 'varchar', select: false})
+    @Column({type: 'varchar', select: false, unique: true})
     email: string;
 
     @Column({type: 'varchar', select: false})
