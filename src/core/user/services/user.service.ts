@@ -1,15 +1,18 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { CreateUserDTO } from "../dto/create-user.dto";
+import { CreateUserDTO } from "../dto/CreateUser.dto";
 import { User } from "../user.entity";
-import * as argon2 from 'argon2';
+
+import { PaginationInput } from "src/common/input/pagination.input";
+import { PasswordService } from "src/common/services/password.service";
 
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectRepository(User) private usersRepository: Repository<User>,
+        @InjectRepository(User) private readonly usersRepository: Repository<User>,
+        private readonly passwordService: PasswordService,
     ) {}
 
     
@@ -19,10 +22,23 @@ export class UserService {
         })
     }
 
+    async getUserList(pagination: PaginationInput) {
+        return await this.usersRepository.findAndCount({
+            skip: pagination.skip,
+            take: pagination.take,
+        })
+    } 
+
     async createUser(data: CreateUserDTO) {
-        const password = await argon2.hash(data.password, {
-            secret: Buffer.from(process.env.ARGON_SALT)
-        });
+        const ExistsUser = await this.usersRepository.findOneBy([
+            {email: data.email},
+            {username: data.username}
+        ]);
+
+        if (ExistsUser) throw new HttpException({message: 'Same user already exists'}, 400);
+
+        const password = await this.passwordService.hash(data.password);
+
         const response = await this.usersRepository.save({
             ...data,
             password

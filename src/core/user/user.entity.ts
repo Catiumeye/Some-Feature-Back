@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,  } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn,  } from "typeorm";
 import { IsEmail, IsString, Length } from "class-validator";
+import { Post } from "../post/post.entity";
 
 
 @Entity({name: 'user'})
@@ -31,4 +32,7 @@ export class User {
     @ManyToMany(type => User)
     @JoinTable()
     friends: User[];
+
+    @OneToMany(type => Post, post => post.user)
+    posts: Post[];
 }

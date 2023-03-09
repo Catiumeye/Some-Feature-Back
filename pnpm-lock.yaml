@@ -9,6 +9,7 @@ specifiers:
   '@nestjs/core': ^9.0.0
   '@nestjs/platform-express': ^9.0.0
   '@nestjs/schematics': ^9.0.0
+  '@nestjs/swagger': ^6.2.1
   '@nestjs/testing': ^9.0.0
   '@nestjs/typeorm': ^9.0.1
   '@types/express': ^4.17.13
@@ -39,12 +40,13 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
-  '@nestjs/class-transformer': github.com/nestjs/class-transformer/ce82cb6ce1d258ff33488c8b5370ef4ce468c7d1
-  '@nestjs/class-validator': github.com/nestjs/class-validator/fc7e86802f72ea5ae99d4fb5bb2cf688e0b8f782
+  '@nestjs/class-transformer': github.com/nestjs/class-transformer/fe2be16508398b6a25ee1710e8692b469494ab2e
+  '@nestjs/class-validator': github.com/nestjs/class-validator/229c9517b2d02d1116f03f3cc5ff003c0c3e5557
   '@nestjs/common': 9.3.9_b11626e1d3e8723ed81a03aa155de8e2
   '@nestjs/config': 2.3.1_4c61a88cc57ea57f7eccc2d9182d16b9
   '@nestjs/core': 9.3.9_87806c4787b201deba567c81fca6e27b
   '@nestjs/platform-express': 9.3.9_ffcae472daf98f8e7f149b1b9afd514e
+  '@nestjs/swagger': 6.2.1_58f2ca034795b5330344e691e5b1839e
   '@nestjs/typeorm': 9.0.1_896036d9180e5c2806f34ed792d62030
   argon2: 0.30.3
   class-transformer: 0.5.1
@@ -991,6 +993,25 @@ packages:
       - encoding
     dev: false
 
+  /@nestjs/mapped-types/1.2.2_933b2479c2c9775104abf401affa7efb:
+    resolution: {integrity: sha512-3dHxLXs3M0GPiriAcCFFJQHoDFUuzTD5w6JDhE7TyfT89YKpe6tcCCIqOZWdXmt9AZjjK30RkHRSFF+QEnWFQg==}
+    peerDependencies:
+      '@nestjs/common': ^7.0.8 || ^8.0.0 || ^9.0.0
+      class-transformer: ^0.2.0 || ^0.3.0 || ^0.4.0 || ^0.5.0
+      class-validator: ^0.11.1 || ^0.12.0 || ^0.13.0 || ^0.14.0
+      reflect-metadata: ^0.1.12
+    peerDependenciesMeta:
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      '@nestjs/common': 9.3.9_b11626e1d3e8723ed81a03aa155de8e2
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
+      reflect-metadata: 0.1.13
+    dev: false
+
   /@nestjs/platform-express/9.3.9_ffcae472daf98f8e7f149b1b9afd514e:
     resolution: {integrity: sha512-f8ja2sYuDGj2QSMmjg05n3WF19wJG5yTiYxRi64nsu5GKL0qLM1LzxNemehkni/knExlvF2bDpbKKpna9nC1JA==}
     peerDependencies:
@@ -1035,6 +1056,35 @@ packages:
     transitivePeerDependencies:
       - chokidar
     dev: true
+
+  /@nestjs/swagger/6.2.1_58f2ca034795b5330344e691e5b1839e:
+    resolution: {integrity: sha512-9M2vkfJHIzLqDZwvM5TEZO0MxRCvIb0xVy0LsmWwxH1lrb0z/4MhU+r2CWDhBtTccVJrKxVPiU2s3T3b9uUJbg==}
+    peerDependencies:
+      '@fastify/static': ^6.0.0
+      '@nestjs/common': ^9.0.0
+      '@nestjs/core': ^9.0.0
+      class-transformer: '*'
+      class-validator: '*'
+      reflect-metadata: ^0.1.12
+    peerDependenciesMeta:
+      '@fastify/static':
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      '@nestjs/common': 9.3.9_b11626e1d3e8723ed81a03aa155de8e2
+      '@nestjs/core': 9.3.9_87806c4787b201deba567c81fca6e27b
+      '@nestjs/mapped-types': 1.2.2_933b2479c2c9775104abf401affa7efb
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
+      js-yaml: 4.1.0
+      lodash: 4.17.21
+      path-to-regexp: 3.2.0
+      reflect-metadata: 0.1.13
+      swagger-ui-dist: 4.15.5
+    dev: false
 
   /@nestjs/testing/9.3.9_c418e316f9253dbda2412ccc07238777:
     resolution: {integrity: sha512-+mPvSVvSC2SAkYgZZv1mOI2xsdGc1pmq7/sem7iin/JDoFtlvoGSK+pfZHD3IV3EpYtq1v/8/5gi+UFH9yZnDg==}
@@ -4934,6 +4984,10 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /swagger-ui-dist/4.15.5:
+    resolution: {integrity: sha512-V3eIa28lwB6gg7/wfNvAbjwJYmDXy1Jo1POjyTzlB6wPcHiGlRxq39TSjYGVjQrUSAzpv+a7nzp7mDxgNy57xA==}
+    dev: false
+
   /symbol-observable/4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
     engines: {node: '>=0.10'}
@@ -5579,14 +5633,14 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/nestjs/class-transformer/ce82cb6ce1d258ff33488c8b5370ef4ce468c7d1:
-    resolution: {tarball: https://codeload.github.com/nestjs/class-transformer/tar.gz/ce82cb6ce1d258ff33488c8b5370ef4ce468c7d1}
+  github.com/nestjs/class-transformer/fe2be16508398b6a25ee1710e8692b469494ab2e:
+    resolution: {tarball: https://codeload.github.com/nestjs/class-transformer/tar.gz/fe2be16508398b6a25ee1710e8692b469494ab2e}
     name: '@nestjs/class-transformer'
     version: 0.4.0
     dev: false
 
-  github.com/nestjs/class-validator/fc7e86802f72ea5ae99d4fb5bb2cf688e0b8f782:
-    resolution: {tarball: https://codeload.github.com/nestjs/class-validator/tar.gz/fc7e86802f72ea5ae99d4fb5bb2cf688e0b8f782}
+  github.com/nestjs/class-validator/229c9517b2d02d1116f03f3cc5ff003c0c3e5557:
+    resolution: {tarball: https://codeload.github.com/nestjs/class-validator/tar.gz/229c9517b2d02d1116f03f3cc5ff003c0c3e5557}
     name: '@nestjs/class-validator'
     version: 0.13.4
     dependencies:
