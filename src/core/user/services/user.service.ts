@@ -5,7 +5,7 @@ import { CreateUserDTO } from "../dto/CreateUser.dto";
 import { User } from "../user.entity";
 
 import { PaginationInput } from "src/common/input/pagination.input";
-import { PasswordService } from "src/common/services/password.service";
+import { PasswordService } from '../../../common//services/password.service';
 
 
 @Injectable()
@@ -16,9 +16,9 @@ export class UserService {
     ) {}
 
     
-    async getUser(id) {
+    async getUser(id: number) {
         return await this.usersRepository.findOneBy({
-            id: id
+            id
         })
     }
 
@@ -35,7 +35,7 @@ export class UserService {
             {username: data.username}
         ]);
 
-        if (ExistsUser) throw new HttpException({message: 'Same user already exists'}, 400);
+        if (ExistsUser) throw new HttpException({success: false, message: 'Same user already exists'}, 400);
 
         const password = await this.passwordService.hash(data.password);
 
